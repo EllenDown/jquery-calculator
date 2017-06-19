@@ -38,7 +38,6 @@ function clearScreen() {
 function evaluateEquation() {
   var $screenText = $screen.text();
   if ($screenText === 'Error') {
-
   } else {
     if ($screenText.includes("x")) {
       $screenText = $screenText.replace("x", "*")
@@ -47,27 +46,30 @@ function evaluateEquation() {
       $screenText = $screenText.replace("÷", "/")
     }
     var lastChar = $screenText[$screenText.length - 1];
-    var $zero = $("span#zero")
+    // var $zero = $("span#zero")
     var counter = 0;
     for (var i = 0; i < $screenText.length; i++) {
       if ($screenText[i] === "+" || $screenText[i] === "-" || $screenText[i] === "*" || $screenText[i] === "/") {
         counter++;
       }
-      if ($screenText.includes("/0")) {
-        console.log("hi")
-        $screen.text("Error");
-      }
+    }
+      // if ($screenText.includes("/0")) {
+      //   console.log("hi")
+      //   $screen.text("Error");
+      // }
       if (counter > 1) {
         $screen.text("Error");
       } else if (lastChar === "+" || lastChar === "-" || lastChar === "*" || lastChar === "/") {
         $screen.text("Error");
-      } else {
+      } else if ($screenText.includes("/")&& lastChar==="0") {
+        $screen.text("Error");
+      }
+      else {
         var result = eval($screenText)
         $screen.text(result);
       }
     }
   }
-}
 
 
 
